@@ -1,16 +1,24 @@
-library(httr)
-library(jsonlite)
-library(shiny)
-
 library(shiny)
 
 # Define UI ----
 ui <- fluidPage(
-  titlePanel("title panel"),
+  titlePanel("COVID-19 Monitoring"),
   
   sidebarLayout(
-    sidebarPanel("sidebar panel"),
-    mainPanel("main panel")
+    sidebarPanel(
+      helpText("Select date to determine COVID-19 transmission on that day."),
+      dateInput("date", 
+                h5("Date Selection"), 
+                value = "2020-01-01"),
+      h6("Tranmission Thresholds as Defined by the CDC"),
+      img(src = "table-1", height = 200, width = 340)
+      
+    ),
+    mainPanel(
+      h2("Transmission")
+      
+      
+    )
   )
   
 )
@@ -22,7 +30,3 @@ server <- function(input, output) {
 
 # Run the app ----
 shinyApp(ui = ui, server = server)
-
-#res = GET("https://data.ontario.ca/api/3/action/datastore_search?resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11")
-#data = fromJSON(rawToChar(res$content))
-#cov_data=data$result$records
